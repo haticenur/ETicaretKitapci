@@ -1,0 +1,213 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="Client.Main" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+    <title>Kitap Adam</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="js/jquery.js"></script>
+    <script>
+        function OpenLogin() {
+            CloseAll();
+            $("#divLogin").slideDown();
+        }
+
+        function OpenCreateUser() {
+            CloseAll();
+            $("#divCreateUser").slideDown();
+        }
+
+        function OpenLinks() {
+            CloseAll();
+            $("#divLinks").slideDown();
+        }
+
+        function CloseAll() {
+            $("#divLogin").slideUp();
+            $("#divCreateUser").slideUp();
+            $("#divLinks").slideUp();
+
+        }
+    </script>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div id="wrap">
+
+            <div class="header">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="images/logo.gif" alt="" title="" border="0" /></a>
+                </div>
+                <div id="menu">
+                    <ul>
+                        <li class="selected"><a href="default.aspx">Ana Sayfa</a></li>
+                        <li><a href="products.aspx">Ürünler</a></li>
+                        <li><a href="#">specials books</a></li>
+                        <li><a href="mycart.aspx">Sepetim</a></li>
+                        <li><a href="#">register</a></li>
+                        <li><a href="products.aspx?1=price">prices</a></li>
+                        <% if(Membership.GetUser()!=null){ %>
+                        <li><a href="default.aspx?logout=true">Çıkış</a></li>
+                        <%} %>
+                    </ul>
+                </div>
+
+
+            </div>
+
+
+            <div class="center_content">
+                <div class="left_content">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+
+                    <div class="clear"></div>
+
+                </div>
+                <!--end of left content-->
+
+                <div class="right_content">
+
+                    <% if (Membership.GetUser() != null & Roles.IsUserInRole("User"))
+                       {%>
+
+                    <div class="cart">
+                        <div class="title">
+                            <span class="title_icon">
+                                <img src="images/cart.gif" alt="" title=""></span>Sepetim
+                        </div>
+                        <div class="home_cart_content">
+                            <asp:Literal ID="ltrQuantiy" runat="server"></asp:Literal> x Adet | <span class="red">Toplam: <asp:Literal ID="ltrTotal" runat="server"></asp:Literal> TL</span>
+                             
+                        </div>
+                        <a href="mycart.aspx" class="view_cart">view cart</a>
+
+                    </div>
+
+
+                    <%} %>
+                    <% else
+                       { %>
+                    <p>
+                        <asp:Literal ID="ltrError" runat="server"></asp:Literal>
+                    </p>
+                    <p>
+
+                        <div id="divLinks">
+                            <a href="#" onclick="OpenLogin()">Giriş Yap</a>
+                            <a href="#" onclick="OpenCreateUser()">Kayıt Ol</a>
+                        </div>
+
+                        <div id="divLogin" style="display: none">
+                            <p><a href="#" onclick="OpenLinks()">Geri</a></p>
+                            <p>
+                                <asp:TextBox ID="txtLoginName" placeholder="Kullanıcı Adı" runat="server"></asp:TextBox>
+                            </p>
+                            <p>
+                                <asp:TextBox ID="txtLoginPassword" placeholder="Şifre" TextMode="Password" runat="server"></asp:TextBox>
+                            </p>
+
+                            <asp:Button ID="btnLogin" OnClick="btnLogin_Click" runat="server" Text="Giriş" />
+                    </p>
+
+                </div>
+
+                <div id="divCreateUser" style="display: none">
+                    <p><a href="#" onclick="OpenLinks()">Geri</a></p>
+                    <p>
+                        <asp:TextBox ID="txtName" placeholder="Kullanıcı Adı"  runat="server"></asp:TextBox>
+                    </p>
+                    <p>
+                        <asp:TextBox ID="txtPass" placeholder="Şifre" TextMode="Password" runat="server"></asp:TextBox>
+                    </p>
+                    <p>
+                        <asp:TextBox ID="txtEmail" placeholder="E-mail" runat="server"></asp:TextBox>
+                    </p>
+                    <p>
+                        <asp:Button ID="btnCreateUser" OnClick="btnCreateUser_Click" runat="server" Text="Kayıt Ol" />
+                    </p>
+
+
+                </div>
+
+                <%} %>
+                <div class="title">
+                    <span class="title_icon">
+                        <img src="images/bullet3.gif" alt="" title="" /></span>Kitapci
+                </div>
+                <div class="about">
+                    <p>
+                        <img src="images/about.gif" alt="" title="" class="right" />
+                       
+                        küçük bir kitapçıyız biz :)
+
+                    </p>
+
+                </div>
+
+
+
+                <div class="right_box">
+
+
+
+
+
+                    <div class="title">
+                        <span class="title_icon">
+                            <img src="images/bullet6.gif" alt="" title="" /></span>Kategoriler
+                    </div>
+
+                    <ul class="list">
+                        <asp:Repeater ID="rptCategories" runat="server">
+                            <ItemTemplate>
+                                <li><a href="products.aspx?categoryId=<%# Eval("Id") %>"><%# Eval("Name") %></a></li>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </ul>
+
+                </div>
+
+
+                </div>
+                <!--end of right content-->
+
+
+
+
+                <div class="clear"></div>
+            </div>
+            <!--end of center content-->
+
+
+            <div class="footer">
+                <div class="left_footer">
+                    <img src="images/footer_logo.gif" alt="" title="" /><br />
+                    <a href="http://csscreme.com/freecsstemplates/" title="free templates">
+                        <img src="images/csscreme.gif" alt="free templates" title="free templates" border="0" /></a>
+                </div>
+                <div class="right_footer">
+                    <a href="#">home</a>
+                    <a href="#">about us</a>
+                    <a href="#">services</a>
+                    <a href="#">privacy policy</a>
+                    <a href="#">contact us</a>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </form>
+</body>
+</html>

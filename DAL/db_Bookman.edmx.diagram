@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bfa8e9fe101d4ff4a6b1adf01475b8f2" Name="Diagram1">
+        <EntityTypeShape EntityType="db_BookmanModel.User" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_BookmanModel.Category" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_BookmanModel.OrderDetail" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_BookmanModel.Order" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_BookmanModel.Product" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="db_BookmanModel.FK_Orders_aspnet_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="db_BookmanModel.FK_Products_Categories" ManuallyRouted="false" />
+        <AssociationConnector Association="db_BookmanModel.FK_OrderDetails_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="db_BookmanModel.FK_OrderDetails_Products" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

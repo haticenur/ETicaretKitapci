@@ -1,0 +1,79 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Panel.master.cs" Inherits="Client.Admin.Panel" %>
+
+<%@ Register Src="~/Admin/ucSideBar.ascx" TagPrefix="uc1" TagName="ucSideBar" %>
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Transdmin Light</title>
+
+    <!-- CSS -->
+    <link href="style/css/transdmin.css" rel="stylesheet" type="text/css" media="screen" />
+    <!--[if IE 6]><link rel="stylesheet" type="text/css" media="screen" href="style/css/ie6.css" /><![endif]-->
+    <!--[if IE 7]><link rel="stylesheet" type="text/css" media="screen" href="style/css/ie7.css" /><![endif]-->
+
+    <!-- JavaScripts-->
+    <script type="text/javascript" src="style/js/jquery.js"></script>
+    <script type="text/javascript" src="style/js/jNice.js"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div id="wrapper">
+            <!-- h1 tag stays for the logo, you can use the a tag for linking the index page -->
+            <h1><a href="#"><span>Transdmin Light</span></a></h1>
+
+            <!-- You can name the links with lowercase, they will be transformed to uppercase by CSS, we prefered to name them with uppercase to have the same effect with disabled stylesheet -->
+            <ul id="mainNav">
+                <% if (Membership.GetUser() != null)
+                   {%>
+                <li><a href="Categories.aspx" class="active">KATEGORİLER</a></li>
+                <!-- Use the "active" class for the active menu item  -->
+                <li><a href="Products.aspx">ÜRÜNLER</a></li>
+                <li><a href="#">SİPARİŞLER</a></li>
+                <li class="logout"><a href="login.aspx?logout=true">(<%= Membership.GetUser().UserName %>) Çıkış</a></li>
+                <%} %>
+            </ul>
+            <!-- // #end mainNav -->
+
+            <div id="containerHolder">
+                <div id="container">
+                    <div id="sidebar">
+                        <ul class="sideNav">
+                            <% if (Membership.GetUser() != null)
+                               {%>
+                            <uc1:ucSideBar runat="server" id="ucSideBar" />
+                            <%} %>
+                        </ul>
+                        <!-- // .sideNav -->
+                    </div>
+                    <!-- // #sidebar -->
+
+                    <!-- h2 stays for breadcrumbs -->
+                    <% if(Membership.GetUser()!=null){ %>
+                    <h2><a href="#"><%= Client.Models.Helper.Sayfalar[0] %></a> &raquo; <a href="#" class="active"><%= Client.Models.Helper.Sayfalar[1] %></a></h2>
+                    <%} %>
+                    <div id="main">
+                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </div>
+                    <!-- // #main -->
+
+                    <div class="clear"></div>
+                </div>
+                <!-- // #container -->
+            </div>
+            <!-- // #containerHolder -->
+
+            <p id="footer">Feel free to use and customize it. <a href="http://www.perspectived.com">Credit is appreciated.</a></p>
+        </div>
+        <!-- // #wrapper -->
+
+
+    </form>
+</body>
+</html>
